@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native'
 import MainTabNavigator from './navigator/MainTabNavigator'
 
-
 class App extends Component {
     render() {
         return (
@@ -12,6 +11,7 @@ class App extends Component {
                 <MainTabNavigator />
             </NavigationContainer>
         );
+
     }
 }
 
