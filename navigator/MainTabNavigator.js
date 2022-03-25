@@ -4,11 +4,12 @@ import React, { Component } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Home from '../screens/home';
-import Login from '../screens/login';
-import Signup from '../screens/signup';
-import Profile from '../screens/profile';
-import Logout from '../screens/logout';
+import Home from '../screens/Home';
+import Login from '../screens/Login';
+import Signup from '../screens/Signup';
+import Profile from '../screens/Profile';
+import Logout from '../screens/Logout';
+import Camera from '../screens/Camera';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,10 +24,10 @@ class MainTabNavigator extends Component {
               iconName = focused
                 ? 'home'
                 : 'home-outline';
-            } else if (route.name === 'Friends') {
+            } else if (route.name === 'Camera') {
               iconName = focused
-                ? 'md-people'
-                : 'md-people-outline';
+                ? 'camera'
+                : 'camera-outline';
             } else if (route.name === 'Profile') {
               iconName = focused
                 ? 'person'
@@ -51,7 +52,13 @@ class MainTabNavigator extends Component {
         }} />
 
         <Tab.Screen name="Profile" component={Profile} options={{
-          title: 'Profile', tabBarStyle: { display: "none" }, headerTitleAlign: 'center', headerTitle: 'GLORIA ADEMOLU',
+          title: 'Profile', headerTitleAlign: 'center', headerTitle: 'GLORIA ADEMOLU',
+          headerStyle: { backgroundColor: 'lightpink', },
+          headerTitleStyle: { fontWeight: 'bold', fontSize: 18, },
+        }} />
+
+        <Tab.Screen name="Camera" component={Camera} options={{
+          title: 'Camera', headerTitleAlign: 'center',
           headerStyle: { backgroundColor: 'lightpink', },
           headerTitleStyle: { fontWeight: 'bold', fontSize: 18, },
         }} />
