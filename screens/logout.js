@@ -10,7 +10,6 @@ class LogoutScreen extends Component {
             token: ''
         }
     }
-
     componentDidMount() {
         this._unsubscribe = this.props.navigation.addListener('focus', () => {
             this.checkLoggedIn();
@@ -20,6 +19,7 @@ class LogoutScreen extends Component {
     componentWillUnmount() {
         this._unsubscribe();
     }
+    // Function to check if a user is still logged in
 
     checkLoggedIn = async () => {
         const value = await AsyncStorage.getItem('@session_token');
@@ -34,11 +34,13 @@ class LogoutScreen extends Component {
         let token = await AsyncStorage.getItem('@session_token');
         await AsyncStorage.removeItem('@session_token');
         return fetch("http://localhost:3333/api/1.0.0/logout", {
-            method: 'post',
+            method: 'POST',
             headers: {
                 "X-Authorization": token
             }
         })
+            /* if logging out fails, return to login screen.
+             If that fails as well, throw an error */
             .then((response) => {
                 if (response.status === 200) {
                     this.props.navigation.navigate("Login");
@@ -50,7 +52,6 @@ class LogoutScreen extends Component {
             })
             .catch((error) => {
                 console.log(error);
-                ToastAndroid.show(error, ToastAndroid.SHORT);
             })
     }
 

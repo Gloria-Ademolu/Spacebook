@@ -9,14 +9,14 @@ class AddFriend extends Component {
         this.state = {
             first_name: "",
             last_name: "",
+            email: "",
         }
     }
 
+    // Acceccpting the friend request
     addfriends = () => {
-        //Validation here...
-
-        return fetch("http://localhost:3333/api/1.0.0/user", {
-            method: 'post',
+        return fetch("http://localhost:3333/api/1.0.0/friendrequest", {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -32,7 +32,7 @@ class AddFriend extends Component {
                 }
             })
             .then((responseJson) => {
-                console.log("User created with ID: ", responseJson);
+                console.log("Friend added to User with ID: ", responseJson);
                 this.props.navigation.navigate("Friends");
             })
             .catch((error) => {
@@ -40,41 +40,38 @@ class AddFriend extends Component {
             })
     }
 
-
     render() {
-        return (
-            <View style={styles.container}>
-                <Image source={require('../images/profile2.png')}
-                    style={{ width: 430, height: 100 }} />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter your friend's first name..."
-                    onChangeText={(first_name) => this.setState({ first_name })}
-                    value={this.state.first_name}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter your friend's last name..."
-                    onChangeText={(last_name) => this.setState({ last_name })}
-                    value={this.state.last_name}
-                />
-                <Button
-                    icon="account"
-                    mode="contained"
-                    color="lightpink"
-                    onPress={() => this.addfriend()}>
-                    Add Friend
-                </Button>
-                <View style={{ flex: 0.07 }}></View>
-                <Button
-                    icon="home"
-                    mode="contained"
-                    color="lightpink"
-                    onPress={() => this.props.navigation.navigate("Friends")}>
-                    Friends
-                </Button>
-            </View>
-        )
+        if (this.state.isLoading) {
+            return (
+                <View style={styles.container}>
+                    <FlatList style={styles.sectionHeader}
+                        data={this.state.listData}
+                        renderItem={({ item }) => (
+                            <View>
+                                <Text style={styles.item}>{item.user_givenname} {item.user_familyname}</Text>
+                            </View>
+                        )}
+                        keyExtractor={(item, index) => item.user_id.toString()}
+                    />
+                    <Button
+                        icon="account-multiple-plus"
+                        mode="contained"
+                        color="purple"
+                        onPress={() => this.FriendRequest()}>
+                        Add Friend
+                    </Button>
+
+                    <Button
+                        icon="account-multiple-plus"
+                        mode="contained"
+                        color="red"
+                        onPress={() => this.FriendRequest()}>
+                        Reject Request
+                    </Button>
+                </View>
+            );
+        }
+
     }
 }
 
@@ -88,16 +85,6 @@ const styles = StyleSheet.create({
         marginBottom: '10%',
         marginRight: '5%',
         marginLeft: '5%',
-    },
-    input: {
-        height: 50,
-        width: 325,
-        margin: 20,
-        borderWidth: 3,
-        padding: 20,
-        color: 'black',
-        fontSize: 20,
-        backgroundColor: 'lightpink'
     },
 
 });

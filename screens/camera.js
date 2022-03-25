@@ -9,7 +9,7 @@ class CameraScreen extends Component {
         // Camera status to be used 
         this.state = {
             hasPermission: null,
-            type: Camera.Constants.Type.back
+            type: Camera.Constants.Type.front
         }
     }
     async componentDidMount() {
@@ -18,6 +18,9 @@ class CameraScreen extends Component {
     }
 
     sendToServer = async (data) => {
+        // Get these from AsyncStorage
+        let id = 8;
+        let token = "2c4552c30845d5ce1c959f6b15c29868"
         
         let res = await fetch(data.base64);
         let blob = await res.blob();
@@ -60,6 +63,7 @@ class CameraScreen extends Component {
                         ref={ref => this.camera = ref}
                     >
                         <View style={styles.buttonContainer}>
+
                             <TouchableOpacity
                                 style={styles.button}
                                 onPress={() => {

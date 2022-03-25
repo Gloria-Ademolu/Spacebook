@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -14,16 +13,18 @@ class LoginScreen extends Component {
             password: ""
         }
     }
-    login = async () => {
-        //Validation here...
 
-        return fetch("http://localhost:3333/api/1.0.0/login", {
-            method: 'post',
+    // Login validation sent to server
+    login = async () => {
+        
+        return fetch('http://localhost:3333/api/1.0.0/login', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(this.state)
         })
+        // Loads homepage if status is === 200 else throws an error
             .then((response) => {
                 if (response.status === 200) {
                     return response.json()
@@ -45,6 +46,7 @@ class LoginScreen extends Component {
 
     render() {
         return (
+            // Hold the text input boxes for user to enter login details 
             <View style={styles.container}>
                 <Image source={require('../images/space.png')}
                     style={{ width: 280, height: 70, }} />
@@ -71,7 +73,7 @@ class LoginScreen extends Component {
                 </Button>
 
                 <View style={{ flex: 0.05 }}></View>
-
+                
                 <Button
                     icon="account"
                     mode="contained"
@@ -79,9 +81,14 @@ class LoginScreen extends Component {
                     onPress={() => this.props.navigation.navigate("Signup")}>
                     Create an account
                 </Button>
+                <View style={{ flex: 0.08 }}></View>
+                <View>
+                    <Text style={styles.text}>
+                        SpaceBook By Gloria Ademolu 18038959
+                    </Text>
+                </View>
 
             </View>
-
         );
     }
 }
@@ -106,6 +113,11 @@ const styles = StyleSheet.create({
         fontSize: 18,
         backgroundColor: 'lightpink'
     },
+    text: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    }
 
 });
 

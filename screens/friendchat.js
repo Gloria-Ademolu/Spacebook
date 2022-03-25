@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View, StyleSheet, Text} from 'react-native';
 
-class FriendChat extends Component(){
+class FriendChatScreen extends Component(){
     render(){
         return(
             <View>
@@ -13,4 +13,4 @@ class FriendChat extends Component(){
     }
 }
 
-export default FriendChat;
+export default FriendChatScreen;
