@@ -4,7 +4,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Profile from '../screens/Profile';
 import Friends from '../screens/Friends';
 import Chats from '../screens/Chats';
-import Search from '../screens/Search';;
+import Search from '../screens/Search';
+import AddFriend from '../screens/AddFriend';
+
 
 const Drawer = createDrawerNavigator()
 
@@ -26,6 +28,8 @@ class DrawerNavigator extends Component {
                 <Drawer.Screen name='Search'
                     component={Search} />
 
+                    <Drawer.Screen name="AddFriend" 
+                    component={AddFriend} />
 
             </Drawer.Navigator>
         );
