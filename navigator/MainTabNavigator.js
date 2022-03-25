@@ -10,6 +10,7 @@ import Signup from '../screens/Signup';
 import Profile from '../screens/Profile';
 import Logout from '../screens/Logout';
 import Camera from '../screens/Camera';
+import DrawerNavigator from './DrawerNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,14 +31,13 @@ class MainTabNavigator extends Component {
                 : 'camera-outline';
             } else if (route.name === 'Profile') {
               iconName = focused
-                ? 'person'
-                : 'person-outline';
+                ? 'people'
+                : 'people-outline';
             } else if (route.name === 'Logout') {
               iconName = focused
                 ? 'exit'
                 : 'exit-outline';
             }
-
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: 'green',
@@ -51,7 +51,7 @@ class MainTabNavigator extends Component {
           headerTitleStyle: { fontWeight: 'bold', fontSize: 18, }
         }} />
 
-        <Tab.Screen name="Profile" component={Profile} options={{
+        <Tab.Screen name="Profile" component={DrawerNavigator} options={{
           title: 'Profile', headerTitleAlign: 'center', headerTitle: 'GLORIA ADEMOLU',
           headerStyle: { backgroundColor: 'lightpink', },
           headerTitleStyle: { fontWeight: 'bold', fontSize: 18, },
