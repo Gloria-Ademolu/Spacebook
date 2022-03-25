@@ -1,24 +1,20 @@
-import React, { Component } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as React from 'react';
+import { Searchbar } from 'react-native-paper';
 
-class SearchScreen extends Component {
-    constructor(props) {
-        super(props)
+const SearchScreen = () => {
+  const [searchQuery, setSearchQuery] = React.useState('');
 
-        this.state = {
-            isLoading: true,
-            listData: []
-        }
-    }
-    render(){
-        return(
-            <View>
-                <Text> Well will ir staomdworks</Text>
-            </View>
-        )
-    }
-}
+  const onChangeSearch = query => setSearchQuery(query);
+
+  return (
+      
+    <Searchbar
+      placeholder="Search"
+      onChangeText={onChangeSearch}
+      value={searchQuery}
+    />
+    
+  );
+};
 
 export default SearchScreen;

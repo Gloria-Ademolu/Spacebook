@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, TextInput, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { Button } from 'react-native-paper';
 
 class AddFriend extends Component {
@@ -13,10 +13,10 @@ class AddFriend extends Component {
         }
     }
 
-    // Acceccpting the friend request
-    addfriends = () => {
-        return fetch("http://localhost:3333/api/1.0.0/friendrequest", {
-            method: 'POST',
+    // Accecpting the friend request
+    friendrequests = () => {
+        return fetch("http://localhost:3333/api/1.0.0/friendrequests", {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -70,8 +70,13 @@ class AddFriend extends Component {
                     </Button>
                 </View>
             );
+        } else {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.text}> You have no friends... At all</Text>
+                </View>
+            );
         }
-
     }
 }
 
@@ -87,5 +92,12 @@ const styles = StyleSheet.create({
         marginLeft: '5%',
     },
 
+    text:
+    {
+        fontsize: '30%',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    }
 });
+
 export default AddFriend;

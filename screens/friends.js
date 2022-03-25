@@ -59,7 +59,6 @@ class FriendsScreen extends Component {
         }
     };
 
-
     render() {
         if (this.state.isLoading) {
             return (
@@ -85,13 +84,7 @@ class FriendsScreen extends Component {
                         )}
                         keyExtractor={(item, index) => item.user_id.toString()}
                     />
-                    <Button
-                        icon="account-multiple-plus"
-                        mode="contained"
-                        color="orange"
-                        onPress={() => this.props.navigation.navigate('AddFriends')}>
-                        Add Friend
-                    </Button>
+
                 </View>
             );
         }
@@ -119,7 +112,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         fontSize: 16,
         fontWeight: 'bold'
-    }
+    },
+
 });
 
 

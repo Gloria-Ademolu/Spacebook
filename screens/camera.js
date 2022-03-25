@@ -6,22 +6,20 @@ class CameraScreen extends Component {
     constructor(props) {
         super(props);
 
-        // Camera status to be used 
         this.state = {
             hasPermission: null,
-            type: Camera.Constants.Type.front
+            type: Camera.Constants.Type.back
         }
     }
     async componentDidMount() {
-        const { status } = await Camera.requestCameraPermissionsAsync();
+        const { status } = await Camera.getCameraPermissionsAsync();
         this.setState({ hasPermission: status === 'granted' });
     }
 
     sendToServer = async (data) => {
-        // Get these from AsyncStorage
-        let id = 8;
-        let token = "2c4552c30845d5ce1c959f6b15c29868"
-        
+        let id = 10;
+        let token = "";
+
         let res = await fetch(data.base64);
         let blob = await res.blob();
 
@@ -53,7 +51,6 @@ class CameraScreen extends Component {
     }
 
     render() {
-        // To check if the app has permission to use the camera
         if (this.state.hasPermission) {
             return (
                 <View style={styles.container}>
@@ -63,7 +60,6 @@ class CameraScreen extends Component {
                         ref={ref => this.camera = ref}
                     >
                         <View style={styles.buttonContainer}>
-
                             <TouchableOpacity
                                 style={styles.button}
                                 onPress={() => {
@@ -77,7 +73,7 @@ class CameraScreen extends Component {
             );
         } else {
             return (
-                <Text>Camera not accessable</Text>
+                <Text>Camera Not Accessable</Text>
             );
         }
     }
