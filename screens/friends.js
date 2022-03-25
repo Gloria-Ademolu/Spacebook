@@ -3,7 +3,6 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 class FriendsScreen extends Component {
     constructor(props) {
         super(props)
@@ -13,53 +12,55 @@ class FriendsScreen extends Component {
             listData: []
         }
     }
+
     componentDidMount() {
-        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
             this.checkLoggedIn();
         });
+
+        this.getData();
     }
 
     componentWillUnmount() {
-        this._unsubscribe();
+        this.unsubscribe();
     }
-    // Function to check if a user is still logged in
 
-    checkLoggedIn = async () => {
+    getData = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        if (value !== null) {
-            this.setState({ token: value });
-        } else {
-            this.props.navigation.navigate("Login");
-        }
-    }
-
-    Friends = async () => {
-        let token = await AsyncStorage.getItem('@session_token');
-        await AsyncStorage.removeItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/user", {
-            method: 'GET',
-            headers: {
-                "X-Authorization": token
+        return fetch("http://localhost:3333/api/1.0.0/search", {
+            'headers': {
+                'X-Authorization': value
             }
         })
-            /* if friends list cannot be viewed, return to login screen.
-             If that fails as well, throw an error */
             .then((response) => {
                 if (response.status === 200) {
-                    this.props.navigation.navigate("Login");
+                    return response.json()
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
                 } else {
                     throw 'Something went wrong';
                 }
             })
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    listData: responseJson
+                })
+            })
             .catch((error) => {
                 console.log(error);
             })
     }
-    render() {
-        const navigation = this.props.navigation;
 
+    checkLoggedIn = async () => {
+        const value = await AsyncStorage.getItem('@session_token');
+        if (value == null) {
+            this.props.navigation.navigate('Login');
+        }
+    };
+
+
+    render() {
         if (this.state.isLoading) {
             return (
                 <View
@@ -88,7 +89,7 @@ class FriendsScreen extends Component {
                         icon="account-multiple-plus"
                         mode="contained"
                         color="orange"
-                        onPress={() => this.props.navigation.navigate('FriendRequest')}>
+                        onPress={() => this.props.navigation.navigate('AddFriends')}>
                         Add Friend
                     </Button>
                 </View>

@@ -59,6 +59,7 @@ class FriendRequest extends Component {
     };
 
     render() {
+        
         if (this.state.isLoading) {
             return (
                 <View style={styles.container}>

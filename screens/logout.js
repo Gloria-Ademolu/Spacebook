@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, Button, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Button } from 'react-native-paper';
+
 
 class LogoutScreen extends Component {
     constructor(props) {
@@ -59,19 +61,31 @@ class LogoutScreen extends Component {
         return (
             <View style={styles.container}>
                 <Text style={{ fontSize: 25, fontWeight: 'bold', padding: 5, margin: 5 }}>Goodbye my lover, goodbye my friend</Text>
+
+                <View style={{ flex: 0.07 }}></View>
+
                 <Text style={{ fontSize: 25, fontWeight: 'bold', padding: 5, margin: 5 }}>Don't go, don't leave, please stay with me</Text>
-                <Button
-                    title="I want to break free"
-                    color="lightpink"
-                    onPress={() => this.logout()}
-                />
-                <View style={{ flex: 0.05 }}></View>
+
+                <View style={{ flex: 0.07 }}></View>
 
                 <Button
-                    title="I'm coming home"
+                    icon="lock-open"
+                    mode='contained'
+                    color="lightpink"
+                    onPress={() => this.logout()}>
+                    I want to break free
+                </Button>
+
+                <View style={{ flex: 0.07 }}></View>
+
+                <Button
+                    icon="home-heart"
+                    mode='contained'
                     color="darksalmon"
-                    onPress={() => this.props.navigation.navigate("Home")}
-                />
+                    onPress={() => this.props.navigation.navigate("Home")}>
+                    I'm coming home
+                </Button>
+
             </View>
         )
     }
@@ -88,6 +102,7 @@ const styles = StyleSheet.create({
         marginRight: '5%',
         marginLeft: '5%',
     },
+
 });
 
 export default LogoutScreen;

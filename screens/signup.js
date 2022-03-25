@@ -14,16 +14,15 @@ class Signup extends Component {
         }
     }
 
-    signup = () => {
-        //Validation here...
-
+    // Sending the user data to create a new account
+    signup = () => {   
         return fetch("http://localhost:3333/api/1.0.0/user", {
-            method: 'post',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(this.state)
-        })
+        }) //Validating Sign up credentials 
             .then((response) => {
                 if (response.status === 201) {
                     return response.json()
@@ -41,7 +40,6 @@ class Signup extends Component {
                 console.log(error);
             })
     }
-
     render() {
         return (
             <View style={styles.container}>

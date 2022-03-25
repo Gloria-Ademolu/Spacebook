@@ -81,7 +81,9 @@ class LoginScreen extends Component {
                     onPress={() => this.props.navigation.navigate("Signup")}>
                     Create an account
                 </Button>
-                <View style={{ flex: 0.08 }}></View>
+
+                <View style={{ flex: 0.18 }}></View>
+
                 <View>
                     <Text style={styles.text}>
                         SpaceBook By Gloria Ademolu 18038959
